@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">      
+<link rel="stylesheet" href="/style.css" />
+<script src="/client.js"></script>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.6.3/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.6.3/umd/react-dom.production.min.js"></script>
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>  
+</head>
+<body>
+  
+  <div id="background">
+    <div id="inner">
+      <h1>Pomodoro Clock</h1>
+      <div id="rest"></div>
+    </div>
+  </div>
+  
+  
+  <script type="text/jsx">
+  class MyComponent extends React.Component{
+  constructor(props){
+    super(props);
+    this.state={prop: "25:00", bl: "5", sl:"25", blValue:"05:00", initial: "pause", output: "Session", propGo: "Yes", blGo: "Yes"};
+    this.myFunction=this.myFunction.bind(this);
+    this.myFunction2=this.myFunction2.bind(this);   
+    this.myFunction3=this.myFunction3.bind(this);       
+  }
+ 
+  
+myFunction(){
+var playPause= this.state.initial;
+var x= document.getElementById('beep');
+
+  if(playPause=="pause"){this.setState({initial:"play"}); playPause="play";}
+  else{this.setState({initial:"pause"}); playPause= "pause"};
+    /*When start-stop is clicked this will toggle from play to pause */
+  var wor2="ds0";
+ var intV=    setInterval(function(){
+
+   if (this.state.initial == "pause"){
+     x.pause(); x.currentTime=0; clearInterval(intV); return("yes");
+   }
+   /*Stops set interval if the value is pause*/
+
+  var wor2= this.state.prop; /*The Session timer length*/
+  var myAR= []; /*The minutes remaining of the Session timer*/
+  var myAR2= []; /*The seconds remaining of the Session timer*/
+  var wor2b= this.state.blValue; /*The Break timer length*/
+  var myARb= []; /*The minutes remaining of the Break timer*/
+  var myAR2b= []; /*The seconds remaining of the Break timer*/ 
+  var propGo = this.state.propGo;
+  var blGo = this.state.blGo;
+  var myARy= this.state.bl; /*Default Break length*/
+  var myARz= this.state.sl; /*Default Session length*/ 
+   
+   
+  if(wor2== "00:00" && wor2b!= "00:00"){
+  /*  this.setState({output: "Break"});
+    this.setState({propGo: "No"});
+    propGo="No";*/
+  } 
+  if(wor2== "00:00" && wor2b== "00:00"){
+    this.setState({blGo: "No"});
+    blGo= "No";
+  }
+ 
+   
+        for(var q= wor2.length;q>=0;q--){
+          if(q<wor2.length-3){ 
+            var wor22= wor2.split('');
+            myAR.unshift(wor22[q]);
+            }
+        }
+        /*Gets the minutes remaining of the Session timer*/
+   
+        for(var q2= wor2.length;q2>=0;q2--){
+          if(q2>=wor2.length-2){ 
+            var wor23= wor2.split('');
+            myAR2.unshift(wor23[q2]);
+          }
+        }
+        /*Gets the seconds remaining of the Session timer*/
+   
+      myAR2= Number(myAR2.join(''));  
+      myAR= Number(myAR.join(''));
+      /*Converts the variables from an array to a number*/
+
+        for(var q3= wor2b.length;q3>=0;q3--){
+          if(q3<wor2b.length-3){ 
+            var wor22b= wor2b.split('');
+            myARb.unshift(wor22b[q3]);
+          }
+        }
+        /*Gets the minutes remaining of the Break timer*/
+   
+        for(var q4= wor2b.length;q4>=0;q4--){
+          if(q4>=wor2b.length-2){ 
+            var wor23b= wor2b.split('');
+            myAR2b.unshift(wor23b[q4]);
+          }
+        }
+        /*Gets the seconds remaining of the Break timer*/
+   
+      myAR2b= Number(myAR2b.join(''));  
+      myARb= Number(myARb.join('')); 
+      /*Converts the values from an array to a number*/
+
+   
+     if(propGo !="Yes" && blGo =="Yes"){
+    /*If the Session timer is zero and the Break timer isn't zero*/
+      //this.setState({output: "Break"}).bind(this);  
+      /*Changes the output name from Session to Break*/
+
+      if(myAR2b == 0){
+        myAR2b=59; myARb= myARb -1; myAR2b.toString(); 
+      } /*If the Break timer seconds is zero */
+      else if(myAR2b <=10){
+        myAR2b= myAR2b-1; myAR2b = myAR2b.toString(); myAR2b= "0"+ myAR2b;
+      } /*If the Break timer seconds is less than 10*/  
+      else{
+        myAR2b=myAR2b-1; myAR2b=myAR2b.toString();
+      } /*If the Break timer seconds is not less than 10 or equal to zero*/
+
+      if (myARb<=9){
+        myARb="0"+myARb.toString()
+      } /*If the minutes remaining of the Break timer is less than 10*/
+ 
+      var answerb= myARb + ":" + myAR2b;   
+      this.setState({blValue: answerb});      
+      /*sets the state of the Break value (i.e. blValue)*/
+      if(answerb=="00:00"){x.play();}
+ 
+    }
+     /*If the Session timer is zero and the Break timer isn't zero*/
+
+   
+   else if(propGo =="Yes" && blGo =="Yes") {
+     /*If the Session timer isn't zero and the Break timer isn't zero*/
+
+     if(wor2 =="00:00" /*&& this.state.blValue !="00.00"*/ ){
+     /*If the Session timer is zero*/
+        this.setState({output: "Break"})
+        this.setState({propGo: "No"});
+        propGo="No";
+       }
+       else if(myAR2 == 0){
+       /*If the seconds reamining on the Session timer is zero*/  
+         myAR2=59; myAR= myAR -1; myAR2.toString(); myAR=myAR.toString();
+         if(myAR.length==1){
+         /*If the minutes remaining is one character long*/  
+           myAR="0"+myAR
+         }; 
+         var answer= myAR + ":" + myAR2;  
+         this.setState({prop: answer});
+       }
+       else if(myAR2 <=10  && myAR2 !=0){
+       /*If the seconds remaining on the Session timer is less than ten*/
+         myAR2= myAR2-1; myAR2 = myAR2.toString(); myAR=myAR.toString();
+         if(myAR.length==1){
+         /*If the minutes remaining is one character long*/  
+           myAR="0"+myAR
+         };
+         myAR2= "0"+ myAR2; var answer= myAR + ":" + myAR2;  
+         this.setState({prop: answer});}   
+       else{
+       /**/
+         myAR2=myAR2-1; myAR2=myAR2.toString(); myAR=myAR.toString();
+         if(myAR.length==1){
+           myAR="0"+myAR
+         };
+         /*If the minutes remaining on the Session timer is one character long*/
+         var answer= myAR + ":" + myAR2;  
+         this.setState({prop: answer});
+       }
+     if(answer=="00:00"){x.play();}
+   }/*If the Session timer isn't zero and the Break timer isn't zero*/   
+   
+
+   else if(propGo !="Yes" && blGo !="Yes"){     
+   /*If the Break timer and the Session timer are zero*/
+     var myAry2= myARy.toString();
+     if(myAry2.length==1){myAry2= "0"+myAry2;}
+     var myArz2= myARz.toString();
+     if(myArz2.length==1){myArz2= "0"+myArz2;}
+
+     var answerNewy= myAry2 + ":00";   
+     var answerNewz= myArz2 + ":00";        
+     this.setState({blValue: answerNewy});
+     this.setState({prop: answerNewz});
+     this.setState({output: "Session"});  
+     this.setState({propGo: "Yes"});
+     this.setState({blGo: "Yes"});      
+   } /*If the Break timer and the Session timer are zero*/        
+   
+                           }.bind(this), 1000);
+}
+  
+  myFunction2(event){
+ /*   alert(event.target.id);
+     this.setState({prop: "25:00", bl: 5, sl: 25});*/
+  
+ } 
+  
+  
+    myFunction3(event){
+     if(event.target.id == "reset"){
+       var x= document.getElementById('beep');
+       x.pause(); x.currentTime=0;
+       this.setState({prop: "25:00", bl: "5", sl: "25", blValue: "05:00", output: "Session", propGo: "Yes", blGo: "Yes"});
+       if(this.state.initial="play"){this.setState({initial:"pause"})};
+     }      
+      
+      var sec=0;
+      var bre=0;
+      var myAR=[];
+      var secNow= this.state.sl;
+      var breNow= this.state.bl;
+      if(event.target.id =="session-increment"){
+        sec=1;
+        var set= Number(secNow)+Number(sec);
+        if (set<=0){set=1;}
+        if (set>60){set=60;}
+       this.setState({sl: set});
+        if (set<=9){set="0"+set}        
+     this.setState({prop: set+":00"});
+      }   
+      
+      if(event.target.id =="session-decrement"){
+        sec=-1;
+        var set= Number(secNow)+Number(sec);
+        if (set<=0){set=1;}
+        if (set>60){set=60;}    
+        this.setState({sl: set});
+        if (set<=9){set="0"+set}        
+     this.setState({prop: set+":00"});    
+      }      
+      if(event.target.id =="break-decrement"){
+        bre=-1;
+        var set= Number(breNow)+Number(bre);               
+        if (set<=0){set=1;}
+        if (set>60){set=60;}     
+        this.setState({bl: set});
+        if (set<=9){set="0"+set}                
+        this.setState({blValue: set+":00"});
+      }      
+      if(event.target.id =="break-increment"){
+        bre=1;
+        var set= Number(breNow)+Number(bre);       
+        if (set<=0){set=1;}
+        if (set>60){set=60;}     
+        this.setState({bl: set});    
+        if (set<=9){set="0"+set}        
+        
+        this.setState({blValue: set.toString()+":00"}); 
+      }
+ } 
+  
+  render(){
+    return(
+      <div>
+      <div className="mid">  
+      <div className="col-xs-6" id="break-label"><h2>Break Length</h2>
+        <p className="display"><i className="fa fa-arrow-up" id="break-increment" onClick={this.state.initial== "pause" && this.myFunction3}></i> <m id="break-length">{this.state.bl}</m> <i className="fa fa-arrow-down" id="break-decrement" onClick={this.state.initial== "pause" && this.myFunction3}></i></p>
+      </div>
+      <div className="col-xs-6" id="session-label"><h2>Session Length</h2>
+        <p className="display"><i className="fa fa-arrow-up" id="session-increment" onClick={this.state.initial== "pause" && this.myFunction3}></i> <m id="session-length">{this.state.sl}</m> <i className="fa fa-arrow-down" id="session-decrement" onClick={this.state.initial== "pause" && this.myFunction3}></i></p>        
+      </div>
+      </div>
+      
+      <div className="clocks">  
+        <h3 id="timer-label">{this.state.output}</h3>
+        <p className="num" id="time-left">{this.state.output!="Session" && this.state.blValue}{this.state.output=="Session" && this.state.prop}</p>
+      </div>
+        <div className="ico"><i className="fa fa-play" id="start_stop" onClick={this.myFunction}><i className="fa fa-pause" /></i> <i className="fa fa-refresh" id="reset" onClick={this.myFunction3} /></div>  
+             <br />The Break value is: {this.state.blValue}
+             <br />The Session value is: {this.state.prop}
+        <audio id="beep" src="http://www.noiseaddicts.com/samples_1w72b820/282.mp3" type="audio/mpeg"></audio> 
+      </div>
+    );
+  }
+  
+}
+
+
+ReactDOM.render(<MyComponent />, document.getElementById('rest'));
+  
+  </script>
+  
+  
+</body>
+</html>
